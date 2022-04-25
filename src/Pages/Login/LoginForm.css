@@ -1,0 +1,157 @@
+.logo-center {
+  position: absolute;
+  top: 0%;
+  left: 50%;
+  height: 27vh;
+  width: 17vw;
+  transform: translate(-50%, -50%);
+
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+.logo-center img {
+  transform-origin: 50% 50%;
+  transition: transform 1s ease-in-out;
+
+  animation-duration: 2s;
+  animation-name: fadein;
+  animation-timing-function: cubic-bezier(0.65, 0.24, 0.53, 0.86);
+
+  height: 25vh;
+}
+
+.logo-center img:hover {
+  transform: rotate(0.5turn);
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: scale(0, 0);
+  }
+
+  to {
+    opacity: 100%;
+    transform: scale(1, 1);
+  }
+}
+
+.logo-center h1 {
+  color: white;
+  font-weight: 500;
+  font-size: 6vh;
+  font-family: "Courier New", Courier, monospace;
+  text-shadow: 2px 2px 1px rgba(150, 150, 150, 0.5);
+}
+
+.login-container {
+  position: relative;
+  width: 40vw;
+  height: 60vh;
+  margin: 15vh auto 0 auto;
+  padding-bottom: 5vh;
+
+  font-size: 2vh;
+
+  background-color: #12645c;
+
+  border-style: solid;
+  border-radius: 15px;
+  border-color: #01424b;
+  border-width: 3px;
+
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+.login-container form {
+  width: 100%;
+
+  margin: 20vh auto 0 auto;
+}
+
+.login-container form .form-floating {
+  width: 60%;
+  margin: 0 auto 3vh auto;
+}
+
+.login-container form .form-floating input {
+  border-width: 2px;
+  text-align: center;
+  height: calc(2.5em + 1vh);
+  font-size: 1.15em;
+}
+
+.login-container form .form-floating label {
+  text-align: center;
+  width: 100%;
+  font-size: 1.15em;
+
+  vertical-align: middle;
+  line-height: calc(2.5em + 1vh);
+  padding: 0;
+
+  transform-origin: 50% -4.5vh;
+  transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.login-container form .error {
+  visibility: hidden;
+  transition: visibility 0.1s ease-in-out;
+
+  font-weight: 450;
+  font-size: 1em;
+  letter-spacing: 0.1em;
+  color: rgb(255, 0, 0);
+}
+
+.login-container button {
+  --btn-bg-color: #00504b;
+  --btn-bg-light: #165c57;
+  --btn-br-color: #093c38;
+
+  background-color: var(--btn-bg-color);
+
+  height: 6vh;
+  width: 10vw;
+  font-size: 2vmin;
+  padding: 1vh 1vw;
+
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--btn-br-color);
+  letter-spacing: 0.25em;
+
+  margin-bottom: 3vh;
+}
+
+.login-container button:hover,
+.login-container button:focus,
+.login-container button:active {
+  background-color: var(--btn-bg-light);
+  border-color: var(--btn-br-color);
+}
+
+.login-container button:focus {
+  -webkit-box-shadow: 0px 0px 50px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+.login-container p:not(.error) {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.1rem;
+  word-spacing: 0.1rem;
+}
+
+.login-container .c-shadow,
+.login-container.c-shadow,
+.container-large.c-shadow {
+  box-shadow: 5px 5px 9px 0px rgba(0, 0, 0, 0.26);
+  -webkit-box-shadow: 5px 5px 9px 0px rgba(0, 0, 0, 0.26);
+  -moz-box-shadow: 5px 5px 9px 0px rgba(0, 0, 0, 0.26);
+}

@@ -1,0 +1,46 @@
+.dialog-screen {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+
+  border-left-style: solid;
+  border-left-color: rgba(47, 45, 45, 0.49);
+  border-left-width: 3px;
+
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  overflow: auto;
+}
+
+/* TopBar */
+
+.dialog-screen .top-bar {
+  height: 80px;
+  display: flex;
+  background-color: #8bc6ca;
+  border-bottom: 3px solid rgb(75, 71, 71, 0.3);
+}
+
+.top-bar .chat-about {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: medium;
+  height: 100%;
+  width: 100%;
+}
+
+.top-bar .chat-about .avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-left: 2vh;
+  aspect-ratio: 1 / 1;
+}
+
+.top-bar .chat-about .name {
+  font-weight: 600;
+  font-size: 40px;
+  margin-left: 2vh;
+}

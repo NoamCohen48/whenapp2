@@ -1,0 +1,181 @@
+.logo-right {
+  position: absolute;
+  top: 0%;
+  left: 100%;
+  height: 27vh;
+  width: 17vw;
+  transform: translate(-50%, -50%);
+
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+.logo-right img {
+  transform-origin: 50% 50%;
+  transition: transform 1s ease-in-out;
+
+  animation-duration: 2s;
+  animation-name: fadein;
+  animation-timing-function: cubic-bezier(0.65, 0.24, 0.53, 0.86);
+
+  height: 20vh;
+}
+
+.logo-right img:hover {
+  transform: rotate(0.5turn);
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: scale(0, 0);
+  }
+
+  to {
+    opacity: 100%;
+    transform: scale(1, 1);
+  }
+}
+
+.logo-right h1 {
+  color: white;
+  font-weight: 500;
+  font-size: 6vh;
+  font-family: "Courier New", Courier, monospace;
+  text-shadow: 2px 2px 1px rgba(150, 150, 150, 0.5);
+  animation-duration: 2s;
+  animation-name: fadein;
+  animation-timing-function: cubic-bezier(0.65, 0.24, 0.53, 0.86);
+}
+
+.register-container {
+  position: relative;
+  width: 40vw;
+  height: 60vh;
+  margin: 15vh auto 0 auto;
+  padding-bottom: 5vh;
+
+  background-color: #12645c;
+
+  border-style: solid;
+  border-radius: 15px;
+  border-color: #01424b;
+  border-width: 3px;
+
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+.register-container form {
+  width: 100%;
+
+  margin: 0 auto 0 auto;
+
+  padding: 8vh 0 0 0;
+}
+
+/*.register-container form .form-floating {
+  width: 60%;
+  margin: 0 0 4vh 0;
+}*/
+
+.register-container form input {
+  width: 60%;
+  margin: 0 0 4vh 0;
+  border-width: 2px;
+  height: calc(2.5rem + 15px);
+  font-size: 1.15rem;
+}
+
+.register-container form .form-floating label {
+  text-align: center;
+  width: 100%;
+  font-size: 1.15rem;
+
+  vertical-align: middle;
+  line-height: calc(2.5rem + 15px);
+  padding: 0;
+
+  transform-origin: 50% -15px;
+  transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+}
+
+.register-container .avatar {
+  position: absolute;
+  cursor: pointer;
+  top: 30%;
+  left: 68%;
+  height: 20vh;
+  width: 11vw;
+}
+
+.register-container button {
+  position: absolute;
+  right: 7%;
+  bottom: 10%;
+  --btn-bg-color: #00504b;
+  --btn-bg-light: #165c57;
+  --btn-br-color: #093c38;
+
+  background-color: var(--btn-bg-color);
+
+  border-style: solid;
+  border-width: 2px;
+  border-color: var(--btn-br-color);
+  letter-spacing: 0.25rem;
+}
+
+.register-container button:hover {
+  background-color: var(--btn-bg-light);
+  border-color: var(--btn-br-color);
+}
+
+/* .container-small button:focus {
+  -webkit-box-shadow: 0px 0px 16px 6px rgba(9, 60, 56, 0.3);
+  box-shadow: 0px 0px 16px 6px rgba(9, 60, 56, 0.3);
+
+  outline: none;
+}
+.container-small btn:focus{
+  box-shadow: 0px 0px 16px 6px rgba(9, 60, 56, 0.3);
+} */
+
+.register-container p {
+  position: absolute;
+
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  align-self: center;
+
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.1rem;
+  word-spacing: 0.1rem;
+}
+
+.register-container form .error {
+  position: relative;
+  top: 2px;
+  left: 4px;
+
+  font-weight: 450;
+  font-size: 1em;
+  letter-spacing: 0.1em;
+  color: rgb(255, 0, 0);
+}
+
+.register-container .c-shadow,
+.register-container.c-shadow,
+.container-large.c-shadow {
+  box-shadow: 5px 5px 9px 0px rgba(0, 0, 0, 0.26);
+  -webkit-box-shadow: 5px 5px 9px 0px rgba(0, 0, 0, 0.26);
+  -moz-box-shadow: 5px 5px 9px 0px rgba(0, 0, 0, 0.26);
+}

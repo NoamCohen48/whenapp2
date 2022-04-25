@@ -1,0 +1,100 @@
+.dialog-screen .bot-bar {
+  height: 60px;
+  background-color: #8bc6ca;
+  padding: 5px;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  /* border-bottom-right-radius: 5px; */
+}
+
+.dialog-screen .bot-bar > * {
+  margin-left: 5px;
+}
+
+.dialog-screen .bot-bar > i,
+.dialog-screen .bot-bar > .recorder {
+  font-size: 25px;
+  height: 40px;
+  width: 50px;
+
+  text-align: center;
+  /* align-items: center; */
+  /* justify-content: center; */
+
+  color: rgb(83, 54, 121);
+
+  border-style: solid;
+  border-radius: 3px;
+  border-color: rgb(58, 39, 83);
+  border-width: 2px;
+
+  transition: background 0.3s ease-in-out;
+
+  cursor: pointer;
+}
+
+.dialog-screen .bot-bar > i:hover,
+.dialog-screen .bot-bar > .recorder:hover {
+  background-color: rgb(183, 163, 209);
+}
+
+.dialog-screen .bot-bar > .input-group {
+  position: relative;
+  top: 0px;
+}
+
+.dialog-screen .bot-bar > .recorder {
+  position: relative;
+
+  align-items: center;
+  align-content: center;
+  text-align: center;
+}
+
+.dialog-screen .bot-bar .recorder > i {
+  transition: opacity 0.1s ease-in-out;
+}
+
+.dialog-screen .bot-bar .recorder > i:nth-child(2) {
+  display: none;
+}
+
+.dialog-screen .bot-bar .recorder.recording > i:nth-child(1) {
+  display: none;
+}
+
+.dialog-screen .bot-bar .recorder.recording > i:nth-child(2) {
+  display: block;
+  color: rgb(117, 31, 31);
+
+  animation-name: inOut;
+  animation-iteration-count: infinite;
+  animation-timing-function: cubic-bezier(0.65, 0.24, 0.53, 0.86);
+  animation-duration: 0.8s;
+}
+
+.dialog-screen .bot-bar input {
+  font-size: 17px;
+  margin-right: 2px;
+}
+
+.dialog-screen .bot-bar span {
+  cursor: pointer;
+}
+
+@keyframes inOut {
+  from {
+    transform: scale(0.2);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(0.2);
+  }
+}

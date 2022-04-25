@@ -1,0 +1,59 @@
+.dialog-screen .messages-conteiner {
+  width: 100%;
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  background-color: lightgray;
+  overflow-y: auto;
+
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y proximity;
+
+  transition: all 0.3s ease-in-out;
+}
+
+.message {
+  position: relative;
+  flex-direction: column;
+  display: flex;
+  font-size: medium;
+  border-radius: 15px;
+  border-style: solid;
+  margin: 10px;
+  max-width: 60%;
+  max-height: 250px;
+  overflow-wrap: anywhere;
+  margin: 5px;
+  padding: 7px;
+}
+
+.message > * {
+  max-height: 90%;
+  max-width: 100%;
+}
+
+.message > * {
+  margin-bottom: 5px;
+}
+
+.message:last-child {
+  scroll-snap-align: end;
+}
+
+.message.my-message {
+  border-color: rgb(212, 246, 232);
+  background-color: rgb(212, 246, 232);
+  border-top-left-radius: 0%;
+  align-self: flex-start;
+}
+
+.message.other-message {
+  border-color: rgb(177, 215, 249);
+  background-color: rgb(177, 215, 249);
+  border-top-right-radius: 0%;
+  align-self: flex-end;
+}
+
+.message > .date {
+  font-size: 70%;
+}

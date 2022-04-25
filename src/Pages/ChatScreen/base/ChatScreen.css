@@ -1,0 +1,19 @@
+.chat-container {
+  position: relative;
+  height: 80vh;
+  margin: 10vh auto auto;
+  padding: 0;
+
+  background-color: #558cb3b2;
+}
+
+.chat-container .row {
+  height: 100%;
+  width: 100%;
+  margin: 0%;
+}
+
+.chat-container .loading {
+  width: 100%;
+  height: 100%;
+}
