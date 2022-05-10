@@ -8,13 +8,11 @@ import Message from './Message/Message';
 
 
 function DialogScreen(props) {
-    let ChatContext = useChatContext();
+    let { chatWith, messages, addMessage, changeCurrentChat } = useChatContext();
 
-    if (ChatContext.curChat === undefined) {
+    if (chatWith.curChat === undefined) {
         return <img className='openImage' src='https://media3.giphy.com/media/12B39IawiNS7QI/giphy.gif?cid=790b7611ec1e7822201342c1c07e3c9b78cdc818ee32314c&rid=giphy.gif&ct=g' alt='' />;
     }
-
-    let messages = receiveMessages(ChatContext.curChat.username)
 
     /*
     TODO:
@@ -25,8 +23,8 @@ function DialogScreen(props) {
         <>
             <div className='top-bar'>
                 <div className="chat-about">
-                    <img className="avatar" src={ChatContext.curChat.img} alt='avatar' />
-                    <h1 className="name">{ChatContext.curChat.nickname}</h1>
+                    <img className="avatar" src={chatWith.img} alt='avatar' />
+                    <h1 className="name">{chatWith.name}</h1>
                 </div>
             </div>
             <div className='messages-conteiner scroll--simple'>

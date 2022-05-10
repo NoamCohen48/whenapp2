@@ -1,12 +1,14 @@
+import axios from 'axios';
 import React, { useEffect, useRef } from 'react';
 import { useChatContext } from '../../../../Contexts/ChatContextProvider';
 import { useRenderContext } from '../../../../Contexts/RenderContextProvider';
 import { addMessage } from '../../../../db/messages.js';
 import useRecorder from '../../../../Hooks/RecorderHook';
+import { server } from '../../../../Utils/Globals';
 import './InputBar.css';
 
 function InputBar(props) {
-    let chatContext = useChatContext();
+    const { chatWith, messages, addMessage, changeCurrentChat } = useChatContext();
 
     let inputText = useRef();
 
@@ -23,22 +25,26 @@ function InputBar(props) {
         }
     }
 
-    function sendMessage() {
+    const sendMessage = async () => {
         let text = inputText.current.value;
 
         if (text === '') {
             return;
         }
 
-        addMessage(chatContext.curChat.username, true, 'text', text, new Date());
-        forceUpdate()
+        //addMessage(curChat.username, true, 'text', text, new Date());
+
+        //TODO: Check Fetch
+        await addMessage(text)
 
         inputText.current.value = ''
+
+        forceUpdate()
     }
 
     function handleChangeImg(event) {
         let file = URL.createObjectURL(event.target.files[0]);
-        addMessage(chatContext.curChat.username, true, 'img', file, new Date());
+        //addMessage(chatContext.curChat.username, true, 'img', file, new Date());
         uploudButtonImg.current.value = null;
         forceUpdate()
         // props.update();
@@ -49,13 +55,13 @@ function InputBar(props) {
             return;
         }
 
-        addMessage(chatContext.curChat.username, true, 'audio', audioURL, new Date());
+        //addMessage(chatContext.curChat.username, true, 'audio', audioURL, new Date());
         forceUpdate()
     }, [audioURL])
 
     function handleChangeVideo(event) {
         let file = URL.createObjectURL(event.target.files[0]);
-        addMessage(chatContext.curChat.username, true, 'video', file, new Date());
+        //addMessage(chatContext.curChat.username, true, 'video', file, new Date());
         uploudButtonVideo.current.value = null;
         forceUpdate()
     }
@@ -77,7 +83,7 @@ function InputBar(props) {
                 <i className="bi bi-mic" disabled={isRecording} ></i>
                 <i className="bi bi-record-fill" disabled={!isRecording}></i>
             </div>
-            
+
             <div className="input-group">
                 <input type="text" className="form-control input" onKeyDown={onKeyPress} placeholder="Enter Message" aria-label="Recipient's username" aria-describedby="basic-addon2" ref={inputText} />
                 <span className="input-group-text buttom" id="basic-addon2" onClick={sendMessage}><i className="bi bi-send"></i></span>

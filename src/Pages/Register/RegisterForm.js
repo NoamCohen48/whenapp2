@@ -1,7 +1,9 @@
+import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../Contexts/UserContextProvider';
 import { findPerson, registerPerson } from '../../db/users.js';
+import { server } from '../../Utils/Globals';
 import './RegisterForm.css';
 
 function RegisterForm(props) {
@@ -20,16 +22,15 @@ function RegisterForm(props) {
 
     const navigate = useNavigate();
 
-    function Register(event) {
+    const register = async (event) => {
 
         event.preventDefault();
 
-        let username = usernameInput.current.value;
-        let password = passwordInput.current.value;
-        let confirmPassword = confirmPasswordInput.current.value;
-        let nickname = nicknameInput.current.value;
+        let username = usernameInput.current.value
+        let password = passwordInput.current.value
+        let confirmPassword = confirmPasswordInput.current.value
+        let nickname = nicknameInput.current.value
 
-        let person = findPerson({ username: username })
 
         if (password !== confirmPassword) {
             setErrorText("Passwords are not the same")
@@ -41,15 +42,21 @@ function RegisterForm(props) {
             return;
         }
 
-        if (person.length !== 0) {
+        // TODO: do it async from db
+        const response = await axios.post(
+            `${server}/api/register`,
+            { username, password },
+            { withCredentials: true }
+        )
+
+        if (response.status !== 200) {
+            // show error
             setErrorText("User already been taken")
             return
         }
 
-        // TODO: do it async from db
-        registerPerson(username, nickname, password, file);
-        userContext.userEntered(username);
-        navigate("../Chat");
+        await userContext.userEntered(username)
+        navigate("/Chat")
     }
 
     function UploudImage(event) {
@@ -69,7 +76,7 @@ function RegisterForm(props) {
                 </div>
 
                 <div>
-                    <form onSubmit={Register} className=''>
+                    <form onSubmit={register} className=''>
                         <input type="text" className="form-control" placeholder="User Name" required ref={usernameInput} pattern="^[a-zA-Z0-9]*$"
                             title="Must contain only numbers and letters" />
                         <input type="text" className="form-control" placeholder="Nickname" required ref={nicknameInput} pattern="^[a-zA-Z0-9]*$"

@@ -2,69 +2,40 @@ import axios from 'axios';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { addMessage, resetMessages } from '../db/messages';
 import { addContact, findPerson, resetUsers } from '../db/users';
-import { server } from '../Utils/Globals';
+import { thisServer } from '../Utils/Globals';
 
 const UserContext = createContext();
-
-// const ACTIONS = {
-//     ADD_MESSAGE: 'add message',
-//     REMOVE_MESSAGE: 'remove message',
-//     SET_USER: 'set current user',
-// }
-
-// const reducer = (state, action) => {
-//     switch (action.type) {
-//         case ACTIONS.ADD_MESSAGE:
-
-//             break
-//         case ACTIONS.REMOVE_MESSAGE:
-
-//             break
-//         case ACTIONS.SET_USER:
-
-//             break
-//         default:
-//             break
-//     }
-// }
-
-
 
 export function useUserContext() {
     return useContext(UserContext);
 }
 
 export function UserContextProvider(props) {
-    const [curUser, setCurUser] = useState(null);
-    const [chats, setChats] = useState(new Map());
+    const [currentUser, setCurrentUser] = useState(null);
+    const [contacts, setContacts] = useState(null);
 
-    const enterUser = async () => {
-        const _chats = new Map()
+    const userEntered = async (username) => {
+        const userResponses = await axios.get(`${thisServer}/api/contacts/${username}`, { withCredentials: true })
+        const chatsResponses = await axios.get(`${thisServer}/api/contacts`, { withCredentials: true })
+
+        setCurrentUser(userResponses.data)
+
 
         // get all contacts
-        const response = await axios.get(server + "api/contacts")
+        //TODO: Add Token
+        //const response = await axios.get(`${server}/api/contacts`, { withCredentials: true })
 
-        // for each contact fetch messages
-        response.data.forEach(async element => {
-            // fetch messages
-            const response = await axios.get(`${server}api/contacts/${element.id}/messages`)
+        //localStorage.setItem('User_Token', user.token)
 
-            element.messages = [...response.data]
-
-            _chats.set(element.id, element)
-
-        })
-
-        setChats(_chats)
+        setContacts(chatsResponses.data)
     }
 
+    /*
     useEffect(() => {
         setCurUser(null)
 
-
-        let usernameStorage = localStorage.getItem('username');
+        let usernameStorage = localStorage.getItem('User_Token');
         if (!usernameStorage) {
-            setCurUser(undefined)
             return;
         }
 
@@ -77,16 +48,16 @@ export function UserContextProvider(props) {
 
         setCurUser(user)
     }, [])
+    */
 
-    // fetching info when a new user entred
-    function userEntered(username) {
-        localStorage.setItem('username', username)
-
-        setCurUser(findPerson({ username: username })[0])
+    const value = {
+        currentUser,
+        contacts,
+        userEntered
     }
 
     return (
-        <UserContext.Provider value={{ curUser, userEntered }} >
+        <UserContext.Provider value={value} >
             {props.children}
         </UserContext.Provider>
     )

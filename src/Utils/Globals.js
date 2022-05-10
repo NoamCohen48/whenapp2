@@ -1,1 +1,1 @@
-export var server = "http://foo.com/"
+export var thisServer = "http://foo.com"
