@@ -1,17 +1,67 @@
+import axios from 'axios';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { addMessage, resetMessages } from '../db/messages';
 import { addContact, findPerson, resetUsers } from '../db/users';
+import { server } from '../Utils/Globals';
 
 const UserContext = createContext();
+
+// const ACTIONS = {
+//     ADD_MESSAGE: 'add message',
+//     REMOVE_MESSAGE: 'remove message',
+//     SET_USER: 'set current user',
+// }
+
+// const reducer = (state, action) => {
+//     switch (action.type) {
+//         case ACTIONS.ADD_MESSAGE:
+
+//             break
+//         case ACTIONS.REMOVE_MESSAGE:
+
+//             break
+//         case ACTIONS.SET_USER:
+
+//             break
+//         default:
+//             break
+//     }
+// }
+
+
 
 export function useUserContext() {
     return useContext(UserContext);
 }
 
 export function UserContextProvider(props) {
-    const [curUser, setCurUser] = useState(undefined);
+    const [curUser, setCurUser] = useState(null);
+    const [chats, setChats] = useState(new Map());
+
+    const enterUser = async () => {
+        const _chats = new Map()
+
+        // get all contacts
+        const response = await axios.get(server + "api/contacts")
+
+        // for each contact fetch messages
+        response.data.forEach(async element => {
+            // fetch messages
+            const response = await axios.get(`${server}api/contacts/${element.id}/messages`)
+
+            element.messages = [...response.data]
+
+            _chats.set(element.id, element)
+
+        })
+
+        setChats(_chats)
+    }
 
     useEffect(() => {
+        setCurUser(null)
+
+
         let usernameStorage = localStorage.getItem('username');
         if (!usernameStorage) {
             setCurUser(undefined)
