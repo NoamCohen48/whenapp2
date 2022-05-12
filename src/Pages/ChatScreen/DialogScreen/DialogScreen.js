@@ -8,7 +8,7 @@ import Message from './Message/Message';
 
 
 function DialogScreen(props) {
-    let { chatWith, messages, addMessage, changeCurrentChat } = useChatContext();
+    const { chatWith, messages, addMessage, changeCurrentChat } = useChatContext();
 
     if (chatWith === undefined) {
         return <img className='openImage' src='https://media3.giphy.com/media/12B39IawiNS7QI/giphy.gif?cid=790b7611ec1e7822201342c1c07e3c9b78cdc818ee32314c&rid=giphy.gif&ct=g' alt='' />;

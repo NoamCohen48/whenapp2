@@ -12,7 +12,7 @@ function LoginForm(props) {
     const [errorText, setErrorText] = useState('');
 
     const navigate = useNavigate();
-    const userContext = useUserContext()
+    const { currentUser, contacts, userEntered, addContact } = useUserContext()
 
     const login = async (event) => {
         event.preventDefault();
@@ -34,7 +34,7 @@ function LoginForm(props) {
             return;
         }
 
-        await userContext.userEntered(username)
+        await userEntered(username)
         navigate("/Chat")
     }
 

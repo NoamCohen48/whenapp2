@@ -1,1 +1,1 @@
-export var thisServer = "http://WhenApp.com"
+export var thisServer = "https://localhost:7270"

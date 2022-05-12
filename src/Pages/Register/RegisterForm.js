@@ -7,7 +7,7 @@ import { thisServer } from '../../Utils/Globals';
 import './RegisterForm.css';
 
 function RegisterForm(props) {
-    const userContext = useUserContext()
+    const { currentUser, contacts, userEntered, addContact } = useUserContext()
 
     const usernameInput = useRef();
     const passwordInput = useRef();
@@ -17,13 +17,11 @@ function RegisterForm(props) {
     const avaterInput = useRef();
 
     const [errorText, setErrorText] = useState('')
-
     const [file, setFile] = useState("/resources/emptyAvatar.jpg");
 
     const navigate = useNavigate();
 
     const register = async (event) => {
-
         event.preventDefault();
 
         let username = usernameInput.current.value
@@ -55,7 +53,7 @@ function RegisterForm(props) {
             return
         }
 
-        await userContext.userEntered(username)
+        await userEntered(username)
         navigate("/Chat")
     }
 

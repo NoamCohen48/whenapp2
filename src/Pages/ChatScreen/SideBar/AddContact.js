@@ -23,14 +23,6 @@ function AddContactModal(props) {
         const nickname = nicknameInput.current.value
         const server = serverInput.current.value
 
-        let person = findPerson({ username: username })
-
-        if (person <= 0) {
-            //errorText.current.style.visibility = "visible";
-            setError("User not found.");
-            return;
-        }
-
         if (username === currentUser.id) {
             //errorText.current.style.visibility = "visible";
             setError("You can't add yourself!");

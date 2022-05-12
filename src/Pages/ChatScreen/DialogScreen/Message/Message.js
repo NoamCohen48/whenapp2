@@ -26,7 +26,7 @@ function Message({ className, message }) {
     const [month, day, year] = [date.getMonth(), date.getDate(), date.getFullYear()];
     const [hour, minutes, seconds] = [date.getHours(), date.getMinutes(), date.getSeconds()];
     let dateStr = `${String(hour).padStart(2, '0')}:${String(minutes).padStart(2, '0')}, ${String(day).padStart(2, '0')}/${String(month + 1).padStart(2, '0')}/${year}`;
-
+    dateStr = message.created;
     // var options = {year: 'numeric', month: '2-digit', day: '2-digit', hour: 'numeric', minutes: 'numeric'};
     // dateStr = date.toLocaleString("en-US", options)
     return (
