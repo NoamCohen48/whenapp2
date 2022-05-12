@@ -7,21 +7,22 @@ import { findPerson } from '../../../db/users';
 function SideBarItem({contact}) {
     const { chatWith, messages, addMessage, changeCurrentChat } = useChatContext();
 
+
     function selectChat(event) {
-        chatWith(contact);
+        changeCurrentChat(contact);
     }
 
     let lastMessage;
     let dateStr;
 
-    if (chatWith.last === null || chatWith.lastdate === null) {
+    if (contact.last === null || contact.lastdate === null) {
         lastMessage = '';
         dateStr = '';
     }
     else {
         switch ('text') {
             case 'text':
-                lastMessage = <p><i className="bi bi-chat-left-dots"></i>{lastMessage.last}</p>;
+                lastMessage = <p><i className="bi bi-chat-left-dots"></i>{contact.last}</p>;
                 break;
             case 'audio':
                 lastMessage = <p><i className="bi bi-file-earmark-music"></i>audio</p>;
@@ -39,7 +40,7 @@ function SideBarItem({contact}) {
         //const [month, day, year] = [date.getMonth(), date.getDate(), date.getFullYear()]
         //const [hour, minutes, seconds] = [date.getHours(), date.getMinutes(), date.getSeconds()]
         //dateStr = `${String(hour).padStart(2, '0')}:${String(minutes).padStart(2, '0')}, ${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`
-        dateStr = chatWith.lastdate
+        dateStr = contact.lastdate
     }
 
     /*

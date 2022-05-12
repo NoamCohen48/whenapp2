@@ -25,7 +25,7 @@ function InputBar(props) {
     }
 
     const sendMessage = async () => {
-        let text = inputText.current.value;
+        const text = inputText.current.value;
 
         if (text === '') {
             return;

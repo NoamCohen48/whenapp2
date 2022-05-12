@@ -13,6 +13,7 @@ export function useUserContext() {
 export function UserContextProvider(props) {
     const [currentUser, setCurrentUser] = useState(null);
     const [contacts, setContacts] = useState(null);
+    const [isPending, setIsPending] = useState(false);
 
     const fetchUser = async (username) => {
         const userResponses = await axios.get(`${thisServer}/api/contacts/${username}`, { withCredentials: true })
@@ -21,15 +22,18 @@ export function UserContextProvider(props) {
 
     const fetchContacts = async () => {
         const chatsResponses = await axios.get(`${thisServer}/api/contacts`, { withCredentials: true })
-        return chatsResponses.data
+        setContacts(chatsResponses.data)
     }
 
     const userEntered = async (username) => {
-        const userResponses = await fetchUser(username)
-        const chatsResponses = await fetchContacts()
+        //const userResponses = await fetchUser(username)
+        await fetchContacts()
 
-        setCurrentUser(userResponses.data)
-        setContacts(chatsResponses.data)
+        setCurrentUser({
+            id: username,
+            nickname: "amazing username",
+            img: "https://w7.pngwing.com/pngs/867/319/png-transparent-mr-krabs-patrick-star-krusty-krab-remix-music-bob-sponge-cartoon-vehicle-music-download.png"
+        })
 
         // get all contacts
         //TODO: Add Token
@@ -39,7 +43,7 @@ export function UserContextProvider(props) {
 
     }
 
-    const addContact = async (username, otherServer, nickname) => {
+    const addContact = async (username, nickname, otherServer) => {
         //1. add my server
         const myResponse = await axios.post(
             `${thisServer}/api/contacts/`,
@@ -54,8 +58,7 @@ export function UserContextProvider(props) {
             { withCredentials: true },
         )
 
-        const chatsResponses = await fetchContacts()
-        setContacts(chatsResponses.data)
+        await fetchContacts()
     }
 
     /*
@@ -81,7 +84,7 @@ export function UserContextProvider(props) {
     const value = {
         currentUser,
         contacts,
-        userEntered, 
+        userEntered,
         addContact
     }
 

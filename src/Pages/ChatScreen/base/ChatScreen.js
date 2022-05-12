@@ -10,15 +10,17 @@ import './ChatScreen.css';
 
 function ChatScreen(props) {
     //const userContext = 
-    const { curUser, chats, userEntered } = useUserContext()
+    const { currentUser, contacts, userEntered, addContact } = useUserContext()
     let { } = useRenderContext();
 
     // TODO: find a solution for fetching contacts, 
     // now doing it here, putting in context and extracting in side bar
     // Need a way to tell this parent that side bar is loading. 
 
-    if (curUser === undefined) {
-        return <Navigate to="/" replace={true} />
+
+    if (currentUser === null) {
+        //return <Navigate to="/" replace={true} />
+        return <h1>Loading</h1>
     }
 
     return (

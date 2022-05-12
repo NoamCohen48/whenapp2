@@ -29,7 +29,7 @@ function AddContactModal(props) {
             return;
         }
 
-        if (props.contacts.filter(personUserName => personUserName === username).length >= 1) {
+        if (contacts.filter(personUserName => personUserName === username).length >= 1) {
             //errorText.current.style.visibility = "visible";
             setError("User already present.");
             return;

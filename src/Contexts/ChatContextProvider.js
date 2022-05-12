@@ -11,22 +11,27 @@ export function useChatContext() {
 
 function ChatContextProvider(props) {
     const { currentUser, contacts, userEntered } = useUserContext()
-    
+
     const [chatWith, setChat] = useState(undefined);
     const [messages, setMessages] = useState([])
 
     const addMessage = async (content) => {
-        const myResponse = await axios.post(
-            `${thisServer}/api/contacts/${chatWith.id}/messages`,
-            { content },
-            { withCredentials: true }
-        )
+        try {
+            const myResponse = await axios.post(
+                `${thisServer}/api/contacts/${chatWith.id}/messages`,
+                { content },
+                { withCredentials: true }
+            )
 
-        const hisResponse = await axios.post(
-            `${chatWith.server}/api/transfer`,
-            { from: currentUser.id, to: chatWith.id, content },
-            { withCredentials: true }
-        )
+            const hisResponse = await axios.post(
+                `${chatWith.server}/api/transfer`,
+                { from: currentUser.id, to: chatWith.id, content: content },
+                { withCredentials: true }
+            )
+
+        } catch (error) {
+            console.log(error.response.data.error)
+        }
 
         // refetch mesages
         fetchMessages(chatWith)
@@ -39,6 +44,7 @@ function ChatContextProvider(props) {
         )
 
         setMessages(response.data)
+        console.log(response.data);
     }
 
     const changeCurrentChat = async (user) => {
