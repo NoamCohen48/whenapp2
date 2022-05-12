@@ -9,15 +9,14 @@ import './InputBar.css';
 
 function InputBar(props) {
     const { chatWith, messages, addMessage, changeCurrentChat } = useChatContext();
+    let { forceUpdate } = useRenderContext();
+
+    let [audioURL, isRecording, startRecording, stopRecording] = useRecorder();
 
     let inputText = useRef();
-
     const uploudButtonImg = useRef();
     const uploudButtonVideo = useRef();
     const recorderBtn = useRef();
-
-    let { forceUpdate } = useRenderContext();
-    let [audioURL, isRecording, startRecording, stopRecording] = useRecorder();
 
     function onKeyPress(event) {
         if (event.key === 'Enter') {

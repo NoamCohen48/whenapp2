@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../Contexts/UserContextProvider';
 import { findPerson, registerPerson } from '../../db/users.js';
-import { server } from '../../Utils/Globals';
+import { thisServer } from '../../Utils/Globals';
 import './RegisterForm.css';
 
 function RegisterForm(props) {
@@ -44,7 +44,7 @@ function RegisterForm(props) {
 
         // TODO: do it async from db
         const response = await axios.post(
-            `${server}/api/register`,
+            `${thisServer}/api/register`,
             { username, password },
             { withCredentials: true }
         )

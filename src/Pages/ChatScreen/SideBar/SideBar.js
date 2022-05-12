@@ -3,31 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { useUserContext } from '../../../Contexts/UserContextProvider.js';
 import { addMessage, reset, resetMessages } from '../../../db/messages.js';
 import { thisServer } from '../../../Utils/Globals.js';
-import AddContact from './AddContact';
+import AddContactModal from './AddContact';
 import './SideBar.css';
 import SideBarItem from './SideBarItem.js';
 
 function SideBar(props) {
     //const userContext = 
-    const { currentUser, contacts, userEntered } = useUserContext()
-
-    const addContact = async (username, otherServer, nickname) => {
-        //TODO: Add Contact
-
-        //1. add my server
-        const myResponse = await axios.post(
-            `${thisServer}/api/contacts/`,
-            { id: username, server: otherServer, name: nickname },
-            { withCredentials: true },
-        )
-
-        //2. add other server
-        const otherResponse = await axios.post(
-            `${otherServer}/api/invitations/`,
-            { from: currentUser.id, to: username, server: thisServer },
-            { withCredentials: true },
-        )
-    }
+    const { currentUser, contacts, userEntered, addContact } = useUserContext()
 
     /*
     TODO:
@@ -47,7 +29,7 @@ function SideBar(props) {
                     <p>{currentUser.id}</p>
                 </div>
                 <i className="bi bi-person-plus" data-bs-toggle="modal" data-bs-target="#AddContactModal" />
-                <AddContact id="AddContactModal" tabindex="-1" aria_labelledby="AddContactModalLabel" aria_hidden="true" contacts={contacts} addContact={addContact} />
+                <AddContactModal id="AddContactModal" tabindex="-1" aria_labelledby="AddContactModalLabel" aria_hidden="true" />
             </div>
             <div className='contacts-list scroll--simple list-group'>
                 {contacts.map(contact =>

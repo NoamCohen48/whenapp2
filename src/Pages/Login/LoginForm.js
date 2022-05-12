@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../Contexts/UserContextProvider';
 import { findPerson } from '../../db/users.js';
-import { server } from '../../Utils/Globals';
+import { thisServer } from '../../Utils/Globals';
 import './LoginForm.css';
 
 function LoginForm(props) {
@@ -22,7 +22,7 @@ function LoginForm(props) {
 
         // TODO: do it async from db
         const response = await axios.post(
-            `${server}/api/login`,
+            `${thisServer}/api/login`,
             { username, password },
             { withCredentials: true }
         )
@@ -58,7 +58,7 @@ function LoginForm(props) {
                             <input type="password" className="form-control rounded-pill c-shadow " id="inputPassword" placeholder=" " ref={passwordInput} required />
                             <label htmlFor="inputPassword">Password</label>
                         </div>
-                        <p ref={errorText} className='error'>{errorText}</p>
+                        <p className='error'>{errorText}</p>
                         <button type="submit" className="btn btn-primary btn-lg rounded-pill c-shadow">LOGIN</button>
                     </form>
                     <p>To Register Press <Link to="register" className='link-light'>Here</Link></p>

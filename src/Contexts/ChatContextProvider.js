@@ -11,6 +11,7 @@ export function useChatContext() {
 
 function ChatContextProvider(props) {
     const { currentUser, contacts, userEntered } = useUserContext()
+    
     const [chatWith, setChat] = useState(undefined);
     const [messages, setMessages] = useState([])
 

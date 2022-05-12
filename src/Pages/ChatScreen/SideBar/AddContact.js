@@ -1,49 +1,55 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useUserContext } from '../../../Contexts/UserContextProvider.js';
 import { findPerson } from '../../../db/users.js';
 
-function  AddContact(props) {
-    const userContext = useUserContext()
+function AddContactModal(props) {
+    const { currentUser, contacts, userEntered, addContact } = useUserContext()
 
-    const usernameInput = useRef(undefined)
+    const usernameInput = useRef(null)
+    const nicknameInput = useRef(null)
+    const serverInput = useRef(null)
     const closeBtn = useRef(undefined)
-    const errorText = useRef();
 
-    function onKeyPress(event) {
+    const [error, setError] = useState('')
+
+    const onKeyPress = async (event) => {
         if (event.key === 'Enter') {
-            addContact();
+            submitContact();
         }
     }
 
-    function addContact() {
-        let username = usernameInput.current.value;
+    const submitContact = async () => {
+        const username = usernameInput.current.value
+        const nickname = nicknameInput.current.value
+        const server = serverInput.current.value
 
         let person = findPerson({ username: username })
 
         if (person <= 0) {
-            errorText.current.style.visibility = "visible";
-            errorText.current.textContent = "User not found.";
+            //errorText.current.style.visibility = "visible";
+            setError("User not found.");
             return;
         }
 
-        if (username === userContext.curUser.username) {
-            errorText.current.style.visibility = "visible";
-            errorText.current.textContent = "You can't add yourself!";
+        if (username === currentUser.id) {
+            //errorText.current.style.visibility = "visible";
+            setError("You can't add yourself!");
             return;
         }
 
         if (props.contacts.filter(personUserName => personUserName === username).length >= 1) {
-            errorText.current.style.visibility = "visible";
-            errorText.current.textContent = "User already present.";
+            //errorText.current.style.visibility = "visible";
+            setError("User already present.");
             return;
         }
 
-        props.addContact(usernameInput.current.value);
+        await addContact(username, nickname, server);
 
-        closeBtn.current.click();
+        closeBtn.current.click()
         usernameInput.current.value = ''
-        errorText.current.style.visibility = "hidden";
-
+        nicknameInput.current.value = ''
+        serverInput.current.value = ''
+        setError('')
     }
 
     return (
@@ -55,12 +61,14 @@ function  AddContact(props) {
                         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div className="modal-body">
-                        <input type="text" className="form-control" placeholder="User Name" ref={usernameInput} onKeyDown={onKeyPress} />
-                        <p ref={errorText} className='error'></p>
+                        <input type="text" className="form-control" placeholder="Username" ref={usernameInput} onKeyDown={onKeyPress} />
+                        <input type="text" className="form-control" placeholder="Nickname" ref={nicknameInput} onKeyDown={onKeyPress} />
+                        <input type="text" className="form-control" placeholder="Server" ref={serverInput} onKeyDown={onKeyPress} />
+                        <p className='error'>{error}</p>
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" ref={closeBtn}>Cancel</button>
-                        <button type="button" className="btn btn-primary" onClick={addContact}>Add</button>
+                        <button type="button" className="btn btn-primary" onClick={submitContact}>Add</button>
                     </div>
                 </div>
             </div>
@@ -68,4 +76,4 @@ function  AddContact(props) {
     )
 }
 
-export default AddContact;
+export default AddContactModal;

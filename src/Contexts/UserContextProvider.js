@@ -14,12 +14,22 @@ export function UserContextProvider(props) {
     const [currentUser, setCurrentUser] = useState(null);
     const [contacts, setContacts] = useState(null);
 
-    const userEntered = async (username) => {
+    const fetchUser = async (username) => {
         const userResponses = await axios.get(`${thisServer}/api/contacts/${username}`, { withCredentials: true })
+        return userResponses.data
+    }
+
+    const fetchContacts = async () => {
         const chatsResponses = await axios.get(`${thisServer}/api/contacts`, { withCredentials: true })
+        return chatsResponses.data
+    }
+
+    const userEntered = async (username) => {
+        const userResponses = await fetchUser(username)
+        const chatsResponses = await fetchContacts()
 
         setCurrentUser(userResponses.data)
-
+        setContacts(chatsResponses.data)
 
         // get all contacts
         //TODO: Add Token
@@ -27,6 +37,24 @@ export function UserContextProvider(props) {
 
         //localStorage.setItem('User_Token', user.token)
 
+    }
+
+    const addContact = async (username, otherServer, nickname) => {
+        //1. add my server
+        const myResponse = await axios.post(
+            `${thisServer}/api/contacts/`,
+            { id: username, server: otherServer, name: nickname },
+            { withCredentials: true },
+        )
+
+        //2. add other server
+        const otherResponse = await axios.post(
+            `${otherServer}/api/invitations/`,
+            { from: currentUser.id, to: username, server: thisServer },
+            { withCredentials: true },
+        )
+
+        const chatsResponses = await fetchContacts()
         setContacts(chatsResponses.data)
     }
 
@@ -53,7 +81,8 @@ export function UserContextProvider(props) {
     const value = {
         currentUser,
         contacts,
-        userEntered
+        userEntered, 
+        addContact
     }
 
     return (
