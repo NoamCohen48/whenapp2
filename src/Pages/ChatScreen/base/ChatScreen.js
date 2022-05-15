@@ -1,22 +1,10 @@
-import { useEffect, useLayoutEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { useRenderContext } from '../../../Contexts/RenderContextProvider';
 import { useUserContext } from '../../../Contexts/UserContextProvider';
-import { addMessage, reset } from '../../../db/messages';
-import { addContact, registerPerson } from '../../../db/users';
 import DialogScreen from '../DialogScreen/DialogScreen.js';
 import SideBar from '../SideBar/SideBar.js';
 import './ChatScreen.css';
 
 function ChatScreen(props) {
-    //const userContext = 
-    const { currentUser, contacts, userEntered, addContact } = useUserContext()
-    let { } = useRenderContext();
-
-    // TODO: find a solution for fetching contacts, 
-    // now doing it here, putting in context and extracting in side bar
-    // Need a way to tell this parent that side bar is loading. 
-
+    const { currentUser } = useUserContext()
 
     if (currentUser === null) {
         //return <Navigate to="/" replace={true} />

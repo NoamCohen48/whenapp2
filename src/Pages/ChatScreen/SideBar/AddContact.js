@@ -1,9 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { useUserContext } from '../../../Contexts/UserContextProvider.js';
-import { findPerson } from '../../../db/users.js';
 
 function AddContactModal(props) {
-    const { currentUser, contacts, userEntered, addContact } = useUserContext()
+    const { currentUser, contacts, addContact } = useUserContext()
 
     const usernameInput = useRef(null)
     const nicknameInput = useRef(null)

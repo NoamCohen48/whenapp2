@@ -1,8 +1,5 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useUserContext } from '../../../Contexts/UserContextProvider.js';
-import { addMessage, reset, resetMessages } from '../../../db/messages.js';
-import { thisServer } from '../../../Utils/Globals.js';
 import AddContactModal from './AddContact';
 import './SideBar.css';
 import SideBarItem from './SideBarItem.js';

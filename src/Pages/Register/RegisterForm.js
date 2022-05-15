@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../Contexts/UserContextProvider';
-import { findPerson, registerPerson } from '../../db/users.js';
 import { thisServer } from '../../Utils/Globals';
 import './RegisterForm.css';
 

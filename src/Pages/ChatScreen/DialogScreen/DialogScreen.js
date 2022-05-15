@@ -1,23 +1,15 @@
 import React from 'react';
 import { useChatContext } from '../../../Contexts/ChatContextProvider';
-import { receiveMessages } from '../../../db/messages';
 import './DialogScreen.css';
 import InputBar from './InputBar/InputBar';
 import Message from './Message/Message';
 
-
-
 function DialogScreen(props) {
-    const { chatWith, messages, addMessage, changeCurrentChat } = useChatContext();
+    const { chatWith, messages } = useChatContext();
 
     if (chatWith === undefined) {
         return <img className='openImage' src='https://media3.giphy.com/media/12B39IawiNS7QI/giphy.gif?cid=790b7611ec1e7822201342c1c07e3c9b78cdc818ee32314c&rid=giphy.gif&ct=g' alt='' />;
     }
-
-    /*
-    TODO:
-    3. fetch info from db using useEffect
-    */
 
     return (
         <>

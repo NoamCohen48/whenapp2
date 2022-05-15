@@ -1,7 +1,5 @@
 import React from 'react';
 import { useChatContext } from '../../../Contexts/ChatContextProvider';
-import { receiveMessages } from '../../../db/messages';
-import { findPerson } from '../../../db/users';
 
 
 function SideBarItem({contact}) {

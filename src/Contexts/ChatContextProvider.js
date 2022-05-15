@@ -1,7 +1,6 @@
 import axios from 'axios';
-import React, { createContext, useCallback, useContext, useEffect, useLayoutEffect, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { thisServer } from '../Utils/Globals';
-import { useSignalContext } from './SignalContextProvider';
 import { useUserContext } from './UserContextProvider';
 
 const ChatContext = createContext();
@@ -11,7 +10,7 @@ export function useChatContext() {
 }
 
 function ChatContextProvider(props) {
-    const { currentUser, contacts, userEntered, fetchContacts } = useUserContext()
+    const { currentUser, fetchContacts } = useUserContext()
 
     const [chatWith, setChatWith] = useState(undefined);
     const [messages, setMessages] = useState([])
@@ -38,16 +37,6 @@ function ChatContextProvider(props) {
         fetchMessages()
         fetchContacts()
     }
-
-    // const fetchMessages = async () => {
-    //     console.log("in chat", chatWith);
-    //     const response = await axios.get(
-    //         `${thisServer}/api/contacts/${chatWith.id}/messages`,
-    //         { withCredentials: true }
-    //     )
-
-    //     setMessages(response.data)
-    // }
 
     const fetchMessages = useCallback(async () => {
         if (chatWith === null || chatWith === undefined) {

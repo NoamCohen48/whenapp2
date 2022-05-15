@@ -1,16 +1,10 @@
-import axios from 'axios';
 import React, { useEffect, useRef } from 'react';
 import { useChatContext } from '../../../../Contexts/ChatContextProvider';
-import { useRenderContext } from '../../../../Contexts/RenderContextProvider';
-import { useSignalContext } from '../../../../Contexts/SignalContextProvider';
-import { addMessage } from '../../../../db/messages.js';
 import useRecorder from '../../../../Hooks/RecorderHook';
-import { server } from '../../../../Utils/Globals';
 import './InputBar.css';
 
 function InputBar(props) {
-    const { chatWith, messages, addMessage, changeCurrentChat } = useChatContext()
-    let { forceUpdate } = useRenderContext()
+    const { addMessage } = useChatContext()
 
     let [audioURL, isRecording, startRecording, stopRecording] = useRecorder()
 
@@ -39,14 +33,12 @@ function InputBar(props) {
 
         inputText.current.value = ''
 
-        forceUpdate()
     }
 
     function handleChangeImg(event) {
         let file = URL.createObjectURL(event.target.files[0]);
         //addMessage(chatContext.curChat.username, true, 'img', file, new Date());
         uploudButtonImg.current.value = null;
-        forceUpdate()
         // props.update();
     }
 
@@ -56,14 +48,12 @@ function InputBar(props) {
         }
 
         //addMessage(chatContext.curChat.username, true, 'audio', audioURL, new Date());
-        forceUpdate()
     }, [audioURL])
 
     function handleChangeVideo(event) {
         let file = URL.createObjectURL(event.target.files[0]);
         //addMessage(chatContext.curChat.username, true, 'video', file, new Date());
         uploudButtonVideo.current.value = null;
-        forceUpdate()
     }
 
     function micClick() {
