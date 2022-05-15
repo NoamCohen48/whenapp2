@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useLayoutEffect, useState } from 'react';
 import { thisServer } from '../Utils/Globals';
+import { useSignalContext } from './SignalContextProvider';
 import { useUserContext } from './UserContextProvider';
 
 const ChatContext = createContext();
@@ -10,54 +11,66 @@ export function useChatContext() {
 }
 
 function ChatContextProvider(props) {
-    const { currentUser, contacts, userEntered } = useUserContext()
+    const { currentUser, contacts, userEntered, fetchContacts } = useUserContext()
 
-    const [chatWith, setChat] = useState(undefined);
+    const [chatWith, setChatWith] = useState(undefined);
     const [messages, setMessages] = useState([])
 
     const addMessage = async (content) => {
         try {
             const myResponse = await axios.post(
-                `${thisServer}/api/contacts/${chatWith.id}/messages`,
+                `https://${thisServer}/api/contacts/${chatWith.id}/messages`,
                 { content },
                 { withCredentials: true }
             )
 
             const hisResponse = await axios.post(
-                `${chatWith.server}/api/transfer`,
+                `https://${chatWith.server}/api/transfer`,
                 { from: currentUser.id, to: chatWith.id, content: content },
                 { withCredentials: true }
             )
 
         } catch (error) {
-            console.log(error.response.data.error)
+            console.log(error)
         }
 
         // refetch mesages
-        fetchMessages(chatWith)
+        fetchMessages()
+        fetchContacts()
     }
 
-    const fetchMessages = async (user) => {
+    // const fetchMessages = async () => {
+    //     console.log("in chat", chatWith);
+    //     const response = await axios.get(
+    //         `${thisServer}/api/contacts/${chatWith.id}/messages`,
+    //         { withCredentials: true }
+    //     )
+
+    //     setMessages(response.data)
+    // }
+
+    const fetchMessages = useCallback(async () => {
+        if (chatWith === null || chatWith === undefined) {
+            return;
+        }
+
         const response = await axios.get(
-            `${thisServer}/api/contacts/${user.id}/messages`,
+            `https://${thisServer}/api/contacts/${chatWith.id}/messages`,
             { withCredentials: true }
         )
 
         setMessages(response.data)
-        console.log(response.data);
-    }
+    }, [chatWith])
 
     const changeCurrentChat = async (user) => {
-        setChat(user)
-        fetchMessages(user)
+        setChatWith(user)
     }
 
-    const value = {
-        chatWith,
-        messages,
-        addMessage,
-        changeCurrentChat
-    }
+    useEffect(() => {
+        fetchMessages()
+    }, [chatWith])
+
+    const value = { chatWith, messages, addMessage, changeCurrentChat, fetchMessages }
 
     return (
         <ChatContext.Provider value={value}>

@@ -1,1 +1,1 @@
-export var thisServer = "https://localhost:7270"
+export var thisServer = "localhost:7270"

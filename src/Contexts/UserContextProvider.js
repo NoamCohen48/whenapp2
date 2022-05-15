@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { addMessage, resetMessages } from '../db/messages';
 import { addContact, findPerson, resetUsers } from '../db/users';
 import { thisServer } from '../Utils/Globals';
+import { useSignalContext } from './SignalContextProvider';
 
 const UserContext = createContext();
 
@@ -16,14 +17,15 @@ export function UserContextProvider(props) {
     const [isPending, setIsPending] = useState(false);
 
     const fetchUser = async (username) => {
-        const userResponses = await axios.get(`${thisServer}/api/contacts/${username}`, { withCredentials: true })
+        const userResponses = await axios.get(`https://${thisServer}/api/contacts/${username}`, { withCredentials: true })
         return userResponses.data
     }
 
-    const fetchContacts = async () => {
-        const chatsResponses = await axios.get(`${thisServer}/api/contacts`, { withCredentials: true })
+    const fetchContacts = useCallback(async () => {
+        const chatsResponses = await axios.get(`https://${thisServer}/api/contacts`, { withCredentials: true })
         setContacts(chatsResponses.data)
-    }
+        console.log(chatsResponses.data);
+    }, [])
 
     const userEntered = async (username) => {
         //const userResponses = await fetchUser(username)
@@ -46,20 +48,30 @@ export function UserContextProvider(props) {
     const addContact = async (username, nickname, otherServer) => {
         //1. add my server
         const myResponse = await axios.post(
-            `${thisServer}/api/contacts/`,
+            `https://${thisServer}/api/contacts/`,
             { id: username, server: otherServer, name: nickname },
             { withCredentials: true },
         )
 
         //2. add other server
         const otherResponse = await axios.post(
-            `${otherServer}/api/invitations/`,
+            `https://${otherServer}/api/invitations/`,
             { from: currentUser.id, to: username, server: thisServer },
             { withCredentials: true },
         )
 
         await fetchContacts()
     }
+
+    useEffect(() => {
+        if (currentUser === null || currentUser === undefined) {
+            return
+        }
+
+        return;
+
+        fetchContacts()
+    }, [currentUser])
 
     /*
     useEffect(() => {
@@ -81,12 +93,7 @@ export function UserContextProvider(props) {
     }, [])
     */
 
-    const value = {
-        currentUser,
-        contacts,
-        userEntered,
-        addContact
-    }
+    const value = { currentUser, contacts, userEntered, addContact, fetchContacts }
 
     return (
         <UserContext.Provider value={value} >

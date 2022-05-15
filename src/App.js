@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import ChatContextProvider from './Contexts/ChatContextProvider.js';
 import { RenderContextProvider } from './Contexts/RenderContextProvider';
+import { SignalContextProvider } from './Contexts/SignalContextProvider';
 import { UserContextProvider } from './Contexts/UserContextProvider';
 import ChatScreen from './Pages/ChatScreen/base/ChatScreen';
 import LoginForm from './Pages/Login/LoginForm.js';
@@ -13,7 +14,8 @@ import RegisterForm from './Pages/Register/RegisterForm';
 
 function App(props) {
   return (
-    <UserContextProvider >
+
+    <UserContextProvider>
       <BrowserRouter>
         <Routes>
 
@@ -22,11 +24,13 @@ function App(props) {
           <Route path="/register" element={<RegisterForm />} />
 
           <Route path="/Chat" element={
-            <ChatContextProvider>
-              <RenderContextProvider>
-                <ChatScreen />
-              </RenderContextProvider>
-            </ChatContextProvider>
+            <RenderContextProvider>
+              <ChatContextProvider>
+                <SignalContextProvider>
+                  <ChatScreen />
+                </SignalContextProvider>
+              </ChatContextProvider>
+            </RenderContextProvider>
           } />
 
         </Routes>

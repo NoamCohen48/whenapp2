@@ -2,16 +2,17 @@ import axios from 'axios';
 import React, { useEffect, useRef } from 'react';
 import { useChatContext } from '../../../../Contexts/ChatContextProvider';
 import { useRenderContext } from '../../../../Contexts/RenderContextProvider';
+import { useSignalContext } from '../../../../Contexts/SignalContextProvider';
 import { addMessage } from '../../../../db/messages.js';
 import useRecorder from '../../../../Hooks/RecorderHook';
 import { server } from '../../../../Utils/Globals';
 import './InputBar.css';
 
 function InputBar(props) {
-    const { chatWith, messages, addMessage, changeCurrentChat } = useChatContext();
-    let { forceUpdate } = useRenderContext();
+    const { chatWith, messages, addMessage, changeCurrentChat } = useChatContext()
+    let { forceUpdate } = useRenderContext()
 
-    let [audioURL, isRecording, startRecording, stopRecording] = useRecorder();
+    let [audioURL, isRecording, startRecording, stopRecording] = useRecorder()
 
     let inputText = useRef();
     const uploudButtonImg = useRef();

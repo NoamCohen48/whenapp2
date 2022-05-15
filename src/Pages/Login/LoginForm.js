@@ -22,7 +22,7 @@ function LoginForm(props) {
 
         // TODO: do it async from db
         const response = await axios.post(
-            `${thisServer}/api/login`,
+            `https://${thisServer}/api/login`,
             { username, password },
             { withCredentials: true }
         )

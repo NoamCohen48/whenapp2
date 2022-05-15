@@ -42,7 +42,7 @@ function RegisterForm(props) {
 
         // TODO: do it async from db
         const response = await axios.post(
-            `${thisServer}/api/register`,
+            `https://${thisServer}/api/register`,
             { username, password },
             { withCredentials: true }
         )
