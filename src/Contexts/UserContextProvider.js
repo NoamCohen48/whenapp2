@@ -27,7 +27,13 @@ export function UserContextProvider(props) {
             { withCredentials: true }
         )
 
-        setContacts(chatsResponses.data)
+        //TODO: check if didnt break the code
+        const contacts = chatsResponses.data
+        contacts.forEach(contact => {
+            contact.img = 'https://i.stack.imgur.com/l60Hf.png'
+        })
+
+        setContacts()
     }, [])
 
     const userEntered = async (username) => {
