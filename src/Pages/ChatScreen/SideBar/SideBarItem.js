@@ -2,8 +2,8 @@ import React from 'react';
 import { useChatContext } from '../../../Contexts/ChatContextProvider';
 
 
-function SideBarItem({contact}) {
-    const { chatWith, messages, addMessage, changeCurrentChat } = useChatContext();
+function SideBarItem({ contact }) {
+    const { changeCurrentChat } = useChatContext();
 
 
     function selectChat(event) {

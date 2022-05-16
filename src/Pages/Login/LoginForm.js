@@ -11,7 +11,7 @@ function LoginForm(props) {
     const [errorText, setErrorText] = useState('');
 
     const navigate = useNavigate();
-    const { currentUser, contacts, userEntered, addContact } = useUserContext()
+    const { userEntered } = useUserContext()
 
     const login = async (event) => {
         event.preventDefault();

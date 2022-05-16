@@ -6,7 +6,7 @@ import { thisServer } from '../../Utils/Globals';
 import './RegisterForm.css';
 
 function RegisterForm(props) {
-    const { currentUser, contacts, userEntered, addContact } = useUserContext()
+    const { userEntered } = useUserContext()
 
     const usernameInput = useRef();
     const passwordInput = useRef();

@@ -5,17 +5,7 @@ import './SideBar.css';
 import SideBarItem from './SideBarItem.js';
 
 function SideBar(props) {
-    //const userContext = 
-    const { currentUser, contacts, userEntered, addContact } = useUserContext()
-
-    /*
-    TODO:
-    1. create component of items
-    2. list as column flexbox
-    3. each has function that changes the setter
-    4. fetch contacts
-    5. design top bar
-    */
+    const { currentUser, contacts } = useUserContext()
 
     return (
         <>

@@ -38,9 +38,6 @@ export function UserContextProvider(props) {
             nickname: "amazing username",
             img: "https://w7.pngwing.com/pngs/867/319/png-transparent-mr-krabs-patrick-star-krusty-krab-remix-music-bob-sponge-cartoon-vehicle-music-download.png"
         })
-
-        //TODO: save to local storage
-        //localStorage.setItem('User_Token', user.token)
     }
 
     const addContact = async (username, nickname, otherServer) => {
