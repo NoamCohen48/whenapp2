@@ -40,20 +40,19 @@ function RegisterForm(props) {
         }
 
         // TODO: do it async from db
-        const response = await axios.post(
-            `https://${thisServer}/api/register`,
-            { username, password },
-            { withCredentials: true }
-        )
+        try {
+            const response = await axios.post(
+                `https://${thisServer}/api/register`,
+                { username, password },
+                { withCredentials: true }
+            )
 
-        if (response.status !== 200) {
-            // show error
-            setErrorText("User already been taken")
-            return
+            await userEntered(username)
+            navigate("/Chat")
         }
-
-        await userEntered(username)
-        navigate("/Chat")
+        catch (e) {
+            setErrorText(e.response.data.message)
+        }
     }
 
     function UploudImage(event) {
