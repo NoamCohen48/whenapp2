@@ -19,22 +19,20 @@ function LoginForm(props) {
         let username = usernameInput.current.value;
         let password = passwordInput.current.value;
 
-        // TODO: do it async from db
-        const response = await axios.post(
-            `https://${thisServer}/api/login`,
-            { username, password },
-            { withCredentials: true }
-        )
+        try{
+            const response = await axios.post(
+                `https://${thisServer}/api/login`,
+                { username, password },
+                { withCredentials: true }
+            )
 
-        if (response.status !== 200) {
-            // show error
-            setErrorText("Username and Password combination is incorrect")
-            //errorText.current.style.visibility = "visible";
-            return;
+            await userEntered(username)
+            navigate("/Chat")
+    
+        } catch (e) {
+            console.log(e);
+            setErrorText(e.response.data.message)
         }
-
-        await userEntered(username)
-        navigate("/Chat")
     }
 
     // TODO: add icons near input

@@ -99,9 +99,6 @@
 }
 
 .login-container form .error {
-  visibility: hidden;
-  transition: visibility 0.1s ease-in-out;
-
   font-weight: 450;
   font-size: 1em;
   letter-spacing: 0.1em;
