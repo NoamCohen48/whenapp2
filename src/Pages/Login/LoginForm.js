@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useUserContext } from '../../Contexts/UserContextProvider';
-import { thisServer } from '../../Utils/Globals';
+import { ratingServer, thisServer } from '../../Utils/Globals';
 import './LoginForm.css';
 
 function LoginForm(props) {
@@ -19,7 +19,6 @@ function LoginForm(props) {
         let username = usernameInput.current.value;
         let password = passwordInput.current.value;
 
-        // TODO: do it async from db
         try {
             const response = await axios.post(
                 `https://${thisServer}/api/login`,
@@ -29,9 +28,14 @@ function LoginForm(props) {
 
             await userEntered(username)
             navigate("/Chat")
-        }
-        catch (e) {
-            setErrorText(e.response.data.message)
+
+        } catch (error) {
+            console.log("error", error);
+            if (error.code === 'ERR_NETWORK') {
+                setErrorText("there was a problem connecting to server")
+            } else {
+                setErrorText(error.response.data.message)
+            }
         }
     }
 
@@ -59,6 +63,7 @@ function LoginForm(props) {
                         <button type="submit" className="btn btn-primary btn-lg rounded-pill c-shadow">LOGIN</button>
                     </form>
                     <p>To Register Press <Link to="register" className='link-light'>Here</Link></p>
+                    <p> <a href={`http://${ratingServer}/`} className='link-light'>Rate Us</a></p>
                 </div>
             </div>
         </>
