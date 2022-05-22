@@ -30,7 +30,6 @@ function LoginForm(props) {
             navigate("/Chat")
 
         } catch (error) {
-            console.log("error", error);
             if (error.code === 'ERR_NETWORK') {
                 setErrorText("there was a problem connecting to server")
             } else {

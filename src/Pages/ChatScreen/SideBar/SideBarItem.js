@@ -34,11 +34,12 @@ function SideBarItem({ contact }) {
             default:
                 lastMessage = <p><i className="bi bi-question-circle-fill"></i>unkown</p>;
         }
-        //const date = chatWith.lastdate
-        //const [month, day, year] = [date.getMonth(), date.getDate(), date.getFullYear()]
-        //const [hour, minutes, seconds] = [date.getHours(), date.getMinutes(), date.getSeconds()]
-        //dateStr = `${String(hour).padStart(2, '0')}:${String(minutes).padStart(2, '0')}, ${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`
-        dateStr = contact.lastdate
+
+        const date = new Date(contact.lastdate)
+        const [month, day, year] = [date.getMonth(), date.getDate(), date.getFullYear()]
+        const [hour, minutes, seconds] = [date.getHours(), date.getMinutes(), date.getSeconds()]
+        dateStr = `${String(hour).padStart(2, '0')}:${String(minutes).padStart(2, '0')}, ${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`
+        // dateStr = contact.lastdate
     }
 
     /*
