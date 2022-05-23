@@ -49,3 +49,5 @@ this project uses:
 - ASP.net
 - Axios
 - SignalR
+
+### You can search ratings by name (of the writer of the rating) or by text (the description of the rating).
