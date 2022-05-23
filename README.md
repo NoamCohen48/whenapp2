@@ -41,6 +41,11 @@ for the server:
 ![Screenshot_1](https://user-images.githubusercontent.com/92931230/169861142-caac3fb0-8244-4c7c-a4b3-6d7413e2cf57.png)
 5. run the server
 
+for the rating server:
+1. delete migration folder.
+2. in package manager run `Add-Migration init` and `Update-Database`.
+3. run the server
+
 ### Dependencies
 this project uses:
 - react
