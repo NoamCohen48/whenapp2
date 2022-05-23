@@ -20,9 +20,9 @@ this site was created by noam cohen, shaked cohen and roi avraham.
 
 ## How To Run
 for this project you need to clone 3 repos:
-  1. [Web Site (react)](add link!)
-  2. [Server (ASP WebAPI)](add link!)
-  3. [Rating page (ASP MVC)](add link!).
+  1. [Web Site (react)] https://github.com/NoamCohen48/whenapp2.git
+  2. [Server (ASP WebAPI)] https://github.com/NoamCohen48/WhenApp3.git
+  3. [Rating page (ASP MVC)] https://github.com/Roi-Avraham/webClientEx2.git
 
 for running react:
 1. install dependencies using `npm i`
