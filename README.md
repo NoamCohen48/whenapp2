@@ -31,6 +31,7 @@ for running react:
 4. change in ustils/globals the paths so servers:
    thisServer - API server (the server in https://github.com/NoamCohen48/WhenApp3.git)
    ratingServer - MVC server (the server in https://github.com/Roi-Avraham/webClientEx2.git)
+**to run 2 or more clients, run each in a separate browser because this app uses cookies!!** 
 
 for the server:
 1. make sure to install mariadb with username root and password toor.
