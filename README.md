@@ -50,9 +50,9 @@ for the rating server:
 2. in package manager run `Add-Migration init` and `Update-Database`.
 3. run the server
 
-> if needed, install EntityFrameworkCore by entering int Package Manager Console
-> Install-Package Pomelo.EntityFrameworkCore.MySql -Version 6.0.1
-> Install-Package Microsoft.EntityFrameworkcore.Tools -Version 6.0.1
+> if needed, install EntityFrameworkCore by entering int Package Manager Console  
+> Install-Package Pomelo.EntityFrameworkCore.MySql -Version 6.0.1  
+> Install-Package Microsoft.EntityFrameworkcore.Tools -Version 6.0.1  
 
 ### Dependencies
 this project uses:
